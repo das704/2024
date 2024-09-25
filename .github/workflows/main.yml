@@ -19,8 +19,12 @@ jobs:
         run: cmd /c show.bat
 
       - name: Time Counter
-        run: cmd /c loop.bat
-        try: time.sleep(10)
-except KeyboardInterrupt:
-    print("Script interrupted. Exiting...")
-    sys.exit(0)
+        run: |
+          cmd /c loop.bat
+          if %ERRORLEVEL% neq 0 (
+            goto :error
+          )
+          :error
+          echo An error occurred, resuming from last iteration...
+        cmd /c loop.bat
+        
