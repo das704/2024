@@ -20,3 +20,7 @@ jobs:
 
       - name: Time Counter
         run: cmd /c loop.bat
+        try: time.sleep(10)
+except KeyboardInterrupt:
+    print("Script interrupted. Exiting...")
+    sys.exit(0)
